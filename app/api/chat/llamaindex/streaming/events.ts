@@ -131,7 +131,14 @@ function getNodeUrl(metadata: Metadata) {
       return `${process.env.FILESERVER_URL_PREFIX}/output/uploaded/${fileName}`;
     }
     // For public files, just use the file name without the full path
-    return `${process.env.FILESERVER_URL_PREFIX}/data/${fileName}`;
+    let url = `${process.env.FILESERVER_URL_PREFIX}/data/${fileName}`;
+    
+    // Remove duplicate IP address if present
+    const ipAddress = '206.189.139.51';
+    const regex = new RegExp(`${ipAddress}/${ipAddress}`, 'g');
+    url = url.replace(regex, ipAddress);
+    
+    return url;
   }
   
   // fallback to URL in metadata (e.g. for websites)
