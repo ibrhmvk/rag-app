@@ -117,7 +117,11 @@ function getNodeUrl(metadata: Metadata) {
       "FILESERVER_URL_PREFIX is not set. File URLs will not be generated.",
     );
   }
+
   const fileName = metadata["file_name"];
+  const filePath = metadata["file_path"];
+  const dataDir = path.resolve(DATA_DIR);
+
   if (fileName && process.env.FILESERVER_URL_PREFIX) {
     // file_name exists and file server is configured
     const pipelineId = metadata["pipeline_id"];
@@ -129,15 +133,23 @@ function getNodeUrl(metadata: Metadata) {
     if (isPrivate) {
       return `${process.env.FILESERVER_URL_PREFIX}/output/uploaded/${fileName}`;
     }
-    const filePath = metadata["file_path"];
-    const dataDir = path.resolve(DATA_DIR);
 
-    if (filePath && dataDir) {
-      // const relativePath = path.relative(dataDir, filePath);
-      return `${process.env.FILESERVER_URL_PREFIX}/data/${fileName}`;
+    if (filePath) {
+      // Sanitize file path
+      const sanitizedFilePath = path.resolve(dataDir, filePath);
+      // Ensure the path is inside the data directory
+      if (sanitizedFilePath.startsWith(dataDir)) {
+        // Get the relative path from dataDir
+        const relativePath = path.relative(dataDir, sanitizedFilePath);
+        return `${process.env.FILESERVER_URL_PREFIX}/data/${relativePath}`;
+      } else {
+        console.warn("File path is outside the allowed directory.");
+        // Handle the case where the path is not allowed
+      }
     }
   }
-  // fallback to URL in metadata (e.g. for websites)
+
+  // Fallback to URL in metadata (e.g., for websites)
   return metadata["URL"];
 }
 
