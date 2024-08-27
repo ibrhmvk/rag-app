@@ -133,8 +133,8 @@ function getNodeUrl(metadata: Metadata) {
     const dataDir = path.resolve(DATA_DIR);
 
     if (filePath && dataDir) {
-      const relativePath = path.relative(dataDir, filePath);
-      return `${process.env.FILESERVER_URL_PREFIX}/data/${relativePath}`;
+      // const relativePath = path.relative(dataDir, filePath);
+      return `${process.env.FILESERVER_URL_PREFIX}/data/${fileName}`;
     }
   }
   // fallback to URL in metadata (e.g. for websites)
