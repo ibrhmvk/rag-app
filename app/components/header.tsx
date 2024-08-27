@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Header() {
   return (
     <div className="z-10 max-w-5xl w-full items-center justify-center font-mono text-sm lg:flex">
@@ -7,21 +5,8 @@ export default function Header() {
         Get started by editing&nbsp;
         <code className="font-mono font-bold">app/page.tsx</code>
       </p> */}
-      <div className="fixed bottom-0 left-0 mb-4 flex h-auto w-full items-end bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:w-auto lg:bg-none lg:mb-0 justify-center">
-        <a
-          href="https://www.llamaindex.ai/"
-          className="flex items-center justify-center font-nunito text-lg font-bold gap-2"
-        >
-          <span className="text-3xl">Study Abroad Mentor</span>
-          {/* <Image
-            className="rounded-xl"
-            src="/llama.png"
-            alt="Llama Logo"
-            width={40}
-            height={40}
-            priority
-          /> */}
-        </a>
+      <div className="mb-4 flex h-auto w-full items-end text-center font-bold lg:static lg:w-auto lg:bg-none lg:mb-0 justify-center">
+        <span className="text-3xl">Study Abroad Mentor</span>
       </div>
     </div>
   );
