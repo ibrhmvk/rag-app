@@ -116,10 +116,11 @@ function getNodeUrl(metadata: Metadata) {
     console.warn(
       "FILESERVER_URL_PREFIX is not set. File URLs will not be generated.",
     );
+    return metadata["URL"]; // Return early if FILESERVER_URL_PREFIX is not set
   }
+
   const fileName = metadata["file_name"];
-  if (fileName && process.env.FILESERVER_URL_PREFIX) {
-    // file_name exists and file server is configured
+  if (fileName) {
     const pipelineId = metadata["pipeline_id"];
     if (pipelineId) {
       const name = toDownloadedName(pipelineId, fileName);
@@ -132,6 +133,7 @@ function getNodeUrl(metadata: Metadata) {
     // For public files, just use the file name without the full path
     return `${process.env.FILESERVER_URL_PREFIX}/data/${fileName}`;
   }
+  
   // fallback to URL in metadata (e.g. for websites)
   return metadata["URL"];
 }
