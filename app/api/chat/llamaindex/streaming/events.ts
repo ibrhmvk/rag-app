@@ -131,7 +131,7 @@ function getNodeUrl(metadata: Metadata) {
       return `${process.env.FILESERVER_URL_PREFIX}/output/uploaded/${fileName}`;
     }
     // For public files, just use the file name without the full path
-    return `http://206.189.139.51/api/files/data/${fileName}`;
+    return `https://studyabroad.instalane.co/api/files/data/${fileName}`;
   }
   
   // fallback to URL in metadata (e.g. for websites)
